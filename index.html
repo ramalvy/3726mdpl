@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>u more</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 85, 136, 0.9);
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .card {
+            position: relative;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 500px;
+            margin: 20px 0;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .card-content {
+            font-size: 22px;
+            text-align: center;
+            line-height: 1.6;
+            z-index: 1;
+        }
+
+        .card-footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 16px;
+            color: gray;
+            z-index: 1;
+        }
+
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: url('img/bunga.png') no-repeat center center;
+            background-size: cover;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            max-width: 500px;
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            background: linear-gradient(45deg, #ff6f91, #ffa07a);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: url('img/bunga.ico'), auto;
+            transition: all 0.3s;
+        }
+
+        .buttons button:hover {
+            background: linear-gradient(45deg, #ffa07a, #ff6f91);
+            transform: scale(1.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 85, 136, 0.9);
+            color: white;
+            margin-top: 20px;
+        }
+
+        .card img {
+            display: flex;
+            width: 250px;
+            border-radius: 10px;
+            justify-content: center;
+        }
+
+        audio {
+            display: block;
+            margin: 20px auto;
+            border: none;
+            background: #f8d7da;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>good night</h1>
+        <p></p>
+    </header>
+
+    <div class="container">
+        <div class="card" id="card">
+            <div class="card-content">
+                
+            </div>
+            <div class="card-footer">
+                -3726 MDPL
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button onclick="prevCard()">Sebelumnya</button>
+            <button onclick="nextCard()">Selanjutnya</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy;tatacantik</p>
+    </footer>
+
+    <audio controls autoplay loop>
+        <source src="aa.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const cards = [
+            {
+                content: "Bumi luas sekali, tapi untungnya kita bertemu.",
+                footer: "-3726 MDPL"
+            },
+            {
+                content: "Bagaimanapun ujungnya, senang bisa mengenalmu.",
+                footer: "-3726 MDPL"
+            },
+            {
+                content: "Diperjalanan yang panjang ini, jangan jadi milik siapapun dulu yaa.",
+                footer: "-3726 MDPL"
+            },
+            {
+                content: "Tidak apa apa jalannya susah, asal puncaknya kamu.",
+                footer: "-3726 MDPL"
+            },
+            {
+                content: "Kamu adalah perwujudan keindahan semesta dalam bentuk lainnya.",
+                footer: "-3726 MDPL"
+            },
+            {
+                content: "I LOVE YOU MORE",
+                footer: "-someone"
+            },
+            {
+                content: "Dunia ga perlu tau dia siapa, tapi dunia harus tau dia istimewa.",
+                footer: "-3726 MDPL"
+            },
+            {
+                content: "Kamu adalah rencana yang masih diusahakan.",
+                footer: "-."
+            },
+            {
+                content: "Jatuh cinta padamu adalah ketiaksengajaan yang jauh lebih indah dari ribuan hal yang pernah aku rencanakan",
+                footer: "-3726 MDPL"
+            },
+            {
+                content: "",
+                footer: "",
+                image: "https://pngtree.com/freepng/tata.html"
+            }
+        ];
+
+        let currentCard = 0;
+
+        function createFlowers() {
+            const body = document.body;
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.animationDuration = Math.random() * 3 + 5 + 's';
+            body.appendChild(flower);
+            setTimeout(() => flower.remove(), 8000);
+        }
+
+        setInterval(createFlowers, 500);
+
+        function showCard(index) {
+            const card = document.getElementById('card');
+            if (cards[index].image) {
+                card.innerHTML = `<img src="tata.jpg" alt="tata">`;
+            } else {
+                card.innerHTML = `<div class="card-content">${cards[index].content}</div><div class="card-footer">${cards[index].footer}</div>`;
+            }
+        }
+
+        function nextCard() {
+            currentCard = (currentCard + 1) % cards.length;
+            showCard(currentCard);
+        }
+
+        function prevCard() {
+            currentCard = (currentCard - 1 + cards.length) % cards.length;
+            showCard(currentCard);
+        }
+
+        // Initialize the first card
+        showCard(currentCard);
+    </script>
+</body>
+
+</html>
